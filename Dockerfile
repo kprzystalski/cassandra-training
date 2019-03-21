@@ -135,5 +135,7 @@ USER codete
 
 EXPOSE 8888
 
+RUN git clone https://github.com/kprzystalski/cassandra-training
+
 CMD start-notebook.sh --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password='' --notebook-dir=/home/codete/workshop/
 
