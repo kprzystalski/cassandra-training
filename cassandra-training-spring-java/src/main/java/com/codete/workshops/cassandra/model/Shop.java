@@ -32,12 +32,6 @@ public class Shop {
     private String email;
 
     @Column
-    private double locationX;
-
-    @Column
-    private double locationY;
-
-    @Column
     private Map<UUID, Integer> availableProductsQuantity;
 
 }

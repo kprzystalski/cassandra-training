@@ -9,9 +9,6 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -30,8 +27,5 @@ public class Product {
 
     @Column
     private String name;
-
-    @Column
-    private BigDecimal price;
 
 }

@@ -57,7 +57,9 @@ public class DataInitializer implements CommandLineRunner {
         try (Session session = cluster.connect(keyspaceName)) {
             File scriptFile = ResourceUtils.getFile(CQL_SCRIPT_PATH);
             Files.readAllLines(scriptFile.toPath()).stream()
+                    .map(String::trim)
                     .filter(command -> !command.isEmpty())
+                    .filter(command -> !command.startsWith("#"))
                     .forEach(session::execute);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -66,10 +68,10 @@ public class DataInitializer implements CommandLineRunner {
 
     private void initializeData() {
         // Products
-        Product milka = productRepository.save(new Product(UUID.randomUUID(), "3045140105502", "Milka Chocolate", BigDecimal.valueOf(4.49)));
-        Product pepsi = productRepository.save(new Product(UUID.randomUUID(), "1354687964548", "Pepsi Cola", BigDecimal.valueOf(2.99)));
-        Product oreo = productRepository.save(new Product(UUID.randomUUID(), "4578421587645", "Oreo Cookies", BigDecimal.valueOf(5.15)));
-        Product drPepper = productRepository.save(new Product(UUID.randomUUID(), "24654689521", "Dr Pepper", BigDecimal.valueOf(3.12)));
+        Product milka = productRepository.save(new Product(UUID.randomUUID(), "3045140105502", "Milka Chocolate"));
+        Product pepsi = productRepository.save(new Product(UUID.randomUUID(), "1354687964548", "Pepsi Cola"));
+        Product oreo = productRepository.save(new Product(UUID.randomUUID(), "4578421587645", "Oreo Cookies"));
+        Product drPepper = productRepository.save(new Product(UUID.randomUUID(), "24654689521", "Dr Pepper"));
 
         // Shops
         // Shops - Tesco, Krakow
@@ -77,7 +79,7 @@ public class DataInitializer implements CommandLineRunner {
         tescoProducts.put(milka.getId(), 1);
         tescoProducts.put(pepsi.getId(), 724);
         tescoProducts.put(oreo.getId(), 0);
-        Shop tesco = shopRepository.save(new Shop(UUID.randomUUID(), "Tesco", "Kraków, Kapelanka", "tesco@kapelanka", 50.032518, 19.925596, tescoProducts));
+        Shop tesco = shopRepository.save(new Shop(UUID.randomUUID(), "Tesco", "Kraków, Kapelanka", "tesco@kapelanka", tescoProducts));
         shopRepository.save(tesco);
 
         // Shops - Carrefour, Gliwice
@@ -85,14 +87,14 @@ public class DataInitializer implements CommandLineRunner {
         carrefourProducts.put(milka.getId(), 144);
         carrefourProducts.put(pepsi.getId(), 0);
         carrefourProducts.put(oreo.getId(), 2);
-        Shop carrefour = shopRepository.save(new Shop(UUID.randomUUID(), "Carrefour", "Gliwice, Lipowa", "carrefour@gliwice", 50.301669, 18.684511, carrefourProducts));
+        Shop carrefour = shopRepository.save(new Shop(UUID.randomUUID(), "Carrefour", "Gliwice, Lipowa", "carrefour@gliwice", carrefourProducts));
         shopRepository.save(carrefour);
 
         // Shops - Walmart, New York
         HashMap<UUID, Integer> walmartProducts = Maps.newHashMap();
         walmartProducts.put(milka.getId(), 143);
         walmartProducts.put(drPepper.getId(), 1240);
-        Shop walmart = shopRepository.save(new Shop(UUID.randomUUID(), "Walmart", "New York, USA", "walmart@ny", 40.742806, -73.600192, walmartProducts));
+        Shop walmart = shopRepository.save(new Shop(UUID.randomUUID(), "Walmart", "New York, USA", "walmart@ny", walmartProducts));
         shopRepository.save(walmart);
 
         // Customers
@@ -100,8 +102,8 @@ public class DataInitializer implements CommandLineRunner {
         Customer adam = customerRepository.save(new Customer(UUID.randomUUID(), "Adam Nowak"));
 
         // Orders
-        orderRepository.save(new Order(UUID.randomUUID(), john.getId(), tesco.getId(), milka.getId(), 16, LocalDateTime.now()));
-        orderRepository.save(new Order(UUID.randomUUID(), adam.getId(), carrefour.getId(), oreo.getId(), 2, LocalDateTime.of(2019, 3, 23, 20, 13)));
+        orderRepository.save(new Order(UUID.randomUUID(), john.getId(), tesco.getId(), milka.getId(), BigDecimal.valueOf(4.49), 16, LocalDateTime.now()));
+        orderRepository.save(new Order(UUID.randomUUID(), adam.getId(), carrefour.getId(), oreo.getId(), BigDecimal.valueOf(5.15), 2, LocalDateTime.of(2019, 3, 23, 20, 13)));
     }
 
 }
