@@ -34,7 +34,4 @@ public class Product {
     @Column
     private BigDecimal price;
 
-    @Column
-    private Set<String> categories = new HashSet<>();
-
 }
