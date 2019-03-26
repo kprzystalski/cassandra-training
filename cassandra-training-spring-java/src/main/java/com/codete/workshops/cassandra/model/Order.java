@@ -23,14 +23,19 @@ public class Order {
     @PrimaryKey
     private UUID id;
 
+    @Column
     private UUID customerId;
 
+    @Column
     private UUID shopId;
 
+    @Column
     private UUID productID;
 
-    private BigDecimal singleProductPrice;
+    @Column
+    private BigDecimal unitPrice;
 
+    @Column
     private int quantity;
 
     @Column
