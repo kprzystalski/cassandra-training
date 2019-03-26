@@ -24,4 +24,7 @@ public class Customer {
     @Column
     private String fullName;
 
+    @Column
+    private Integer age;
+
 }

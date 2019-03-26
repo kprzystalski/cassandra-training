@@ -98,12 +98,14 @@ public class DataInitializer implements CommandLineRunner {
         shopRepository.save(walmart);
 
         // Customers
-        Customer john = customerRepository.save(new Customer(UUID.randomUUID(), "John Kowalsky"));
-        Customer adam = customerRepository.save(new Customer(UUID.randomUUID(), "Adam Nowak"));
+        Customer john = customerRepository.save(new Customer(UUID.randomUUID(), "John Kowalsky", 17));
+        Customer adam = customerRepository.save(new Customer(UUID.randomUUID(), "Adam Nowak", 35));
+        Customer wincenty = customerRepository.save(new Customer(UUID.randomUUID(), "Wincenty Anonim", null));
 
         // Orders
         orderRepository.save(new Order(UUID.randomUUID(), john.getId(), tesco.getId(), milka.getId(), BigDecimal.valueOf(4.49), 16, LocalDateTime.now()));
         orderRepository.save(new Order(UUID.randomUUID(), adam.getId(), carrefour.getId(), oreo.getId(), BigDecimal.valueOf(5.15), 2, LocalDateTime.of(2019, 3, 23, 20, 13)));
+        orderRepository.save(new Order(UUID.randomUUID(), adam.getId(), carrefour.getId(), oreo.getId(), BigDecimal.valueOf(6.35), 0, LocalDateTime.of(2019, 2, 23, 20, 13)));
     }
 
 }
