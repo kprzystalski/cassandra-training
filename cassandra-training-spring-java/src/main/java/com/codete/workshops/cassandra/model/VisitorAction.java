@@ -5,6 +5,7 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -14,15 +15,17 @@ import java.util.UUID;
 @AllArgsConstructor
 
 @Table
-public class Customer {
+public class VisitorAction {
 
     @PrimaryKey
     private UUID id;
 
     @Column
-    private String fullName;
+    private UUID visitorId;
+
+    private ActionEvent event;
 
     @Column
-    private String email;
+    private LocalDateTime timestamp;
 
 }

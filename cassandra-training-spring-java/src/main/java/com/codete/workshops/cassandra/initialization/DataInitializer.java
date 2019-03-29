@@ -49,7 +49,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        initializeCassandra();
+//        initializeCassandra();
         initializeData();
     }
 
@@ -98,8 +98,8 @@ public class DataInitializer implements CommandLineRunner {
         shopRepository.save(walmart);
 
         // Customers
-        Customer john = customerRepository.save(new Customer(UUID.randomUUID(), "John Kowalsky", 17));
-        Customer adam = customerRepository.save(new Customer(UUID.randomUUID(), "Adam Nowak", 35));
+        Customer john = customerRepository.save(new Customer(UUID.randomUUID(), "John Kowalsky", "john@kowalsky.com"));
+        Customer adam = customerRepository.save(new Customer(UUID.randomUUID(), "Adam Nowak", "adam@nowak.com"));
         Customer wincenty = customerRepository.save(new Customer(UUID.randomUUID(), "Wincenty Anonim", null));
 
         // Orders
